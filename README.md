@@ -97,7 +97,7 @@ The aim of posts like this is not to write a thesis, it's to focus on a limited 
 
 Most of the work is not done in the plenary session (where all the members of parliament are present) but in the commitees beforehand. So if you're not present for the commitee, you're not there the moment the real work is done. I chose to pick this angle because it's very binary (either you're there or you're not). In addition, other variables can be factored in like the party of the member of parliament, what commission it is, season, profession...
 
-As regards to how much data is used. I saw no reason to limit myself to only a few years so I did the maximum possible.
+As regards to how much data is used. There's no hard reason to limit yourself. However, for the scope of this post focusing on the last legislature (2014-2019)seemed sufficiently.
 
 So in a way the topic was driven by the data. Interestingly enough I didn't find any existing article from this angle (googled for absences flemish parliament). The article at the top was exactly the article I tried to replicate but that's clearly another angle.
 
@@ -118,6 +118,19 @@ Single:
 Make sure to specify a month and year when looking for the meeting notes or the server can't handle it anymore (500).
 
 Each index (i, j) will need a loop.
+
+What you want to obtain is a csv with each row being a unique combinations of MP and meeting:
+
+```
+person_id | meeting_id
+A         | X
+B         | X
+A         | Y
+B         | Y
+...
+```
+
+Having fields like personId, name, party, ...
 
 ## How does the Flemish parliament work?
 
