@@ -1,9 +1,5 @@
 # MPs activity
 
-## Setup
-
-## Run
-
 ## Getting the data plan
 
 ### Trying to replicate original article
@@ -81,7 +77,7 @@ So in this example we can see the resolution was made by Wouter Vanbesien and Bj
 
 #### reports themselves
 
-The last thing I tried was to look at the reports themselves using the `/comm/{commId}/verslagen` endpoint. In the end I chose to pursue the path of going after the reports themselves but not for the same reasons as when started. Because while exploring the API I noticed another stumbling block.
+The last thing I tried was to look at the reports themselves using the `/comm/{commId}/verslagen` endpoint. In the end I chose to pursue the path of going after the meeting notes (instead of MPs, commissions and reports) directly. Because while exploring the API I noticed another stumbling block.
 
 #### summary
 
@@ -101,7 +97,27 @@ The aim of posts like this is not to write a thesis, it's to focus on a limited 
 
 Most of the work is not done in the plenary session (where all the members of parliament are present) but in the commitees beforehand. So if you're not present for the commitee, you're not there the moment the real work is done. I chose to pick this angle because it's very binary (either you're there or you're not). In addition, other variables can be factored in like the party of the member of parliament, what commission it is, season, profession...
 
+As regards to how much data is used. I saw no reason to limit myself to only a few years so I did the maximum possible.
+
 So in a way the topic was driven by the data. Interestingly enough I didn't find any existing article from this angle (googled for absences flemish parliament). The article at the top was exactly the article I tried to replicate but that's clearly another angle.
+
+## Getting the data implementation
+
+Single:
+
+- legislature (`/leg/alle`)
+  - commission (`/comm/legislatuur`)
+    - meeting notes (`/verg/volledig/zoek`)
+      - presence: `items[i].vergadering.aanwezigheid[j].aanwezigheid-status`
+      - first name: `items[i].vergadering.aanwezigheid[j].persoon.voornaam`
+      - last name: `items[i].vergadering.aanwezigheid[j].persoon.naam`
+      - mp id: `items[i].vergadering.aanwezigheid[j].persoon.id`
+      - party id: `items[i].vergadering.aanwezigheid[j].persoon.fractie.id`
+      - party name: `items[i].vergadering.aanwezigheid[j].persoon.fractie.naam`
+
+Make sure to specify a month and year when looking for the meeting notes or the server can't handle it anymore (500).
+
+Each index (i, j) will need a loop.
 
 ## How does the Flemish parliament work?
 
