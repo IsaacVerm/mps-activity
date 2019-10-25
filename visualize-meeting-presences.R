@@ -24,6 +24,9 @@ presencePerPerson <- meetings %>%
   group_by(personName) %>% 
   summarise(presences = n())
 
+# visualize most active parliamentarians
+mostActiveParliamentarians <- presencePerPerson
+
 ggplot(data = presencePerPerson,
        aes(x = reorder(personName, presences), y = presences)) +
   geom_col() +

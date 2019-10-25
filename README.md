@@ -140,6 +140,8 @@ B         | Y
 
 Having fields like personId, name, party, ...
 
+If something goes wrong while getting the data, the process doesn't stop but just doesn't write.
+
 ## How does the Flemish parliament work?
 
 [Tasks](https://www.vlaamsparlement.be/over-het-vlaams-parlement/hoe-werkt-het-vlaams-parlement/wat-zijn-de-hoofdtaken-van-het-vlaams) parliament:
@@ -223,3 +225,9 @@ R: latest version tidyverse packages (readr). Note down version numbers.
 ## TO DO
 
 Remove header code since it's not used anyway. A header line will not be written to the file if true is given [for append](https://www.npmjs.com/package/csv-writer).
+
+Add separate file with who should be in commission to crosscheck.
+
+Lessons learned:
+
+- look into Javascript basics
