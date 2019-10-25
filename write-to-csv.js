@@ -1,16 +1,15 @@
-function writeMeetingToCsv(meeting) {
+function createMeetingsArray(personDetails, meetingDetails) {
+  const records = [];
+  personsPresent.forEach(person => {
+    records.push({ meetingId: meetingId, person: person });
+  });
+}
+
+function writeMeetingToCsv(meetingsArray) {
   const createCsvWriter = require('csv-writer').createObjectCsvWriter;
   const csvWriter = createCsvWriter({
     path: 'meetings.csv',
     header: [{ id: 'meetingId', title: 'meetingId' }, { id: 'person', title: 'person' }],
-  });
-
-  const meetingId = extractMeetingId(meeting);
-  const personsPresent = extractPersonsPresent(meeting);
-
-  const records = [];
-  personsPresent.forEach(person => {
-    records.push({ meetingId: meetingId, person: person });
   });
 
   csvWriter.writeRecords(records).then(() => {
