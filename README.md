@@ -200,8 +200,26 @@ Conclusions:
 - only for current term
 - combination with other mandates
 
-## Run
+## Technical notes
 
+Import/export in Javascript (shady as it sounds):
 https://www.systutorials.com/241622/in-node-js-how-to-import-functions-from-another-javascript-file/
 
 Not best practice but for now it works (should look into ES6 import/export).
+
+Bars can be order way easier than using factor (as in the old days):
+https://sebastiansauer.github.io/ordering-bars/
+
+## Structure
+
+Big fan of everyting in one folder till it's clear what structure is appropriate.
+
+## Setup
+
+Javascript: npm install package.json
+
+R: latest version tidyverse packages (readr). Note down version numbers.
+
+## TO DO
+
+Remove header code since it's not used anyway. A header line will not be written to the file if true is given [for append](https://www.npmjs.com/package/csv-writer).
