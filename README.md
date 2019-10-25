@@ -103,21 +103,29 @@ So in a way the topic was driven by the data. Interestingly enough I didn't find
 
 ## Getting the data implementation
 
-Single:
+Getting meeting:
 
 - legislature (`/leg/alle`)
   - commission (`/comm/legislatuur`)
     - meeting notes (`/verg/volledig/zoek`)
-      - presence: `items[i].vergadering.aanwezigheid[j].aanwezigheid-status`
-      - first name: `items[i].vergadering.aanwezigheid[j].persoon.voornaam`
-      - last name: `items[i].vergadering.aanwezigheid[j].persoon.naam`
-      - mp id: `items[i].vergadering.aanwezigheid[j].persoon.id`
-      - party id: `items[i].vergadering.aanwezigheid[j].persoon.fractie.id`
-      - party name: `items[i].vergadering.aanwezigheid[j].persoon.fractie.naam`
+
+Fields to get:
+
+- persons present
+  - first name
+  - last name
+  - person id
+  - party name
+  - party id
+  - gender
+- meeting
+  - meeting id
+  - meeting start timestamp
+  - meeting end timestamp
+
+We only focus on the persons present. You can get all the persons who should be in the commission using a commission endpoint.
 
 Make sure to specify a month and year when looking for the meeting notes or the server can't handle it anymore (500).
-
-Each index (i, j) will need a loop.
 
 What you want to obtain is a csv with each row being a unique combinations of MP and meeting:
 
@@ -191,3 +199,9 @@ Conclusions:
 - keep in mind how long it costs to make a proposal/question
 - only for current term
 - combination with other mandates
+
+## Run
+
+https://www.systutorials.com/241622/in-node-js-how-to-import-functions-from-another-javascript-file/
+
+Not best practice but for now it works (should look into ES6 import/export).
