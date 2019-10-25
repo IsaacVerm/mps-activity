@@ -186,6 +186,8 @@ Parlementiary tasks divided in:
 
 Using ggplot2 just as the author of the article (but he used d3 in the online version).
 
+Presences only make sense if you check who has to be in the commission. e.g. if politician A only goes to a commission meeting once but he doesn't even has to be there it would be incorrect to mark him lazy.
+
 ## Summary original article
 
 Add median line so divide in quadrants.
@@ -212,6 +214,8 @@ Not best practice but for now it works (should look into ES6 import/export).
 Bars can be order way easier than using factor (as in the old days):
 https://sebastiansauer.github.io/ordering-bars/
 
+[save files separately from github](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
+
 ## Structure
 
 Big fan of everyting in one folder till it's clear what structure is appropriate.
@@ -227,6 +231,8 @@ R: latest version tidyverse packages (readr). Note down version numbers.
 Remove header code since it's not used anyway. A header line will not be written to the file if true is given [for append](https://www.npmjs.com/package/csv-writer).
 
 Add separate file with who should be in commission to crosscheck.
+
+Add part with election results. If working hard doesn't matter, who cares?
 
 Lessons learned:
 
