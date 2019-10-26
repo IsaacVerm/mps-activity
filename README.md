@@ -32,7 +32,13 @@ commission-members.csv:
 
 ```
 node save-commission-members
-````
+```
+
+election-results.csv:
+
+```
+node election-results.csv
+```
 
 ## Folder structure
 

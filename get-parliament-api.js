@@ -16,4 +16,7 @@ module.exports = {
   getCommissionMembers: function(domain, commissionId) {
     return axios.get(domain + '/comm/' + commissionId);
   },
+  getElectionResults: function() {
+    return axios.get('https://vlaanderenkiest.be/verkiezingen2019/#/parlement/02000/verkozenen');
+  },
 };

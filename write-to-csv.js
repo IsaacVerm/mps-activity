@@ -31,6 +31,22 @@ module.exports = {
       },
     ];
   },
+  createElectionResultRecords: function(names, votes) {
+    const electionResultRecords = [];
+
+    votes.forEach((vote, i) => {
+      electionResultRecords.push({ votes: vote, name: names[i] });
+    });
+
+    return electionResultRecords;
+
+    // // quick and dirty https://stackoverflow.com/questions/22015684/how-do-i-zip-two-arrays-in-javascript
+    // const zip = (namesArray, votesArray) => namesArray.map((name, i) => {
+    //   'name': name, 'votes': votesArray[i]
+    // });
+
+    // return zip(names, votes);
+  },
   writeMeetingsToCsv: function(meetingRecords) {
     const csvWriter = createCsvWriter({
       path: 'commission-meetings.csv',
@@ -66,6 +82,19 @@ module.exports = {
 
     csvWriter.writeRecords(memberRecords).then(() => {
       console.log(`member with id ${memberRecords[0].memberId} written to commission-members.csv`);
+    });
+  },
+  writeElectionResultsToCsv: function(electionResultRecords) {
+    const csvWriter = createCsvWriter({
+      path: 'election-results.csv',
+      header: ['name', 'votes'],
+      append: true,
+    });
+
+    csvWriter.writeRecords(electionResultRecords).then(() => {
+      console.log(
+        `election results for ${electionResultRecords[0]} written to election-results.csv`,
+      );
     });
   },
 };
