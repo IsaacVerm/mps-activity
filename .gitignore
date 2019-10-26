@@ -1,5 +1,6 @@
 node_modules/
-meetings.csv
+commission-meetings.csv
+commission-members.csv
 .Rproj.user
 mps-activity.Rproj
 .Rhistory

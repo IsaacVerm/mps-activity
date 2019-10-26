@@ -1,3 +1,5 @@
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
 module.exports = {
   createMeetingRecords: function(personsPresentDetails, meetingDetails) {
     const meetingRecords = [];
@@ -19,10 +21,19 @@ module.exports = {
     });
     return meetingRecords;
   },
+  createMemberRecords: function(commissionMemberDetails, commissionId) {
+    return [
+      {
+        memberFirstName: commissionMemberDetails.firstName,
+        memberLastName: commissionMemberDetails.lastName,
+        memberId: commissionMemberDetails.id,
+        commissionId: commissionId,
+      },
+    ];
+  },
   writeMeetingsToCsv: function(meetingRecords) {
-    const createCsvWriter = require('csv-writer').createObjectCsvWriter;
     const csvWriter = createCsvWriter({
-      path: 'meetings.csv',
+      path: 'commission-meetings.csv',
       header: [
         { id: 'meetingId', title: 'meetingId' },
         { id: 'commissionName', title: 'commissionName' },
@@ -41,7 +52,20 @@ module.exports = {
     });
 
     csvWriter.writeRecords(meetingRecords).then(() => {
-      console.log(`meeting with id ${meetingRecords[0].meetingId} written to meetings.csv`);
+      console.log(
+        `meeting with id ${meetingRecords[0].meetingId} written to commission-meetings.csv`,
+      );
+    });
+  },
+  writeCommissionMemberToCsv: function(memberRecords) {
+    const csvWriter = createCsvWriter({
+      path: 'commission-members.csv',
+      header: ['memberFirstName', 'memberLastName', 'memberId', 'commissionId'],
+      append: true,
+    });
+
+    csvWriter.writeRecords(memberRecords).then(() => {
+      console.log(`member with id ${memberRecords[0].memberId} written to commission-members.csv`);
     });
   },
 };

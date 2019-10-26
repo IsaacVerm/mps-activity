@@ -13,4 +13,7 @@ module.exports = {
 
     return axios.get(domain + '/verg/volledig/zoek', searchParams);
   },
+  getCommissionMembers: function(domain, commissionId) {
+    return axios.get(domain + '/comm/' + commissionId);
+  },
 };

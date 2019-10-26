@@ -28,4 +28,11 @@ module.exports = {
       description: meeting.vergadering['omschrijving-kort'],
     };
   },
+  extractCommissionMemberDetails(commissionMember) {
+    return {
+      firstName: commissionMember.voornaam,
+      lastName: commissionMember.naam,
+      id: commissionMember.id,
+    };
+  },
 };
