@@ -47,3 +47,5 @@ Big fan of everyting in one folder till it's clear what structure is appropriate
 ## TO DO
 
 Remove header code in `write-to-csv.js` since it's not used anyway in writing. A header line will not be written to the file if true is given [for append](https://www.npmjs.com/package/csv-writer).
+
+Checks if data is ok.
