@@ -7,8 +7,15 @@ addElectionResults <- function(presences, election_results) {
     mutate(votes = votes * 1000)
 }
 
+addRatioVotesPresences <- function (presences) {
+  presences %>% 
+    mutate(ratio = votes / presences)
+}
+
 plotPresencesVotes <- function(presences) {
   ggplot(data = presences,
          aes(x = presences, y = votes)) +
     geom_point()
 }
+
+

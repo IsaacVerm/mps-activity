@@ -34,7 +34,7 @@ presences <- meetings %>%
 plotPresencesVotes(presences)
 
 # how come some members have no or nearly no presences?
-nearly_no_presences <- total_presences_by_member %>% filter(totalPresences < 20)
+nearly_no_presences <- presences %>% filter(presences < 20)
 joke_schauvliege <- meetings %>% filter(personFirstName == "Joke" & personLastName == "Schauvliege")
 
 # visualize relation again but this time only for members which were present during entire legislature
@@ -46,17 +46,36 @@ presences_entire_legislature <- meetings %>%
 
 plotPresencesVotes(presences_entire_legislature)
 
-# add the names of the 10 members of parliament where ratio votes/presences is most skewed
-addRatioVotesPresences <- function (total_presences) {
-  total_presences %>% 
-    mutate(ratio = votes / totalPresences)
-}
+# add the names of the 5 members of parliament which get the best votes for presences
+# and the 5 members which get the least
 
-presences_full_leg <- total_presences_by_member %>%
+presences_entire_legislature <- presences_entire_legislature %>% 
   addRatioVotesPresences() 
 
-ggplot(data = presences_full_leg,
-       aes(x = totalPresences, y = votes)) +
+most_votes_for_presences <- presences_entire_legislature %>%
+  ungroup() %>%
+  arrange(desc(ratio)) %>%
+  slice(1:10)
+
+least_votes_for_presences <- presences_entire_legislature %>%
+  ungroup() %>%
+  arrange(ratio) %>%
+  slice(1:10)
+
+ggplot(data = presences_entire_legislature,
+       aes(x = presences,y = votes)) +
   geom_point() +
-  geom_point(data = presences_full_leg %>% filter)
+  geom_text(data = most_votes_for_presences,
+            label = most_votes_for_presences$personLastName,
+            check_overlap = TRUE,
+            hjust = "top",
+            vjust = "top",
+            size = 4) +
+  geom_text(data = least_votes_for_presences,
+            label = least_votes_for_presences$personLastName,
+            check_overlap = TRUE,
+            hjust = "top",
+            vjust = "top",
+            size = 4)
   
+
