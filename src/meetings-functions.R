@@ -1,4 +1,5 @@
 library(tidyverse)
+library(lubridate)
 
 onlyObligatoryMeetings <- function(meetings, members) {
   semi_join(meetings, members, by = c("personFirstName", "personLastName", "commissionId"))
@@ -6,7 +7,7 @@ onlyObligatoryMeetings <- function(meetings, members) {
 
 countPresences <- function(meetings) {
   meetings %>% 
-    group_by(personId, personFirstName, personLastName) %>% # want to keep first and last name 
+    group_by(personId, personFirstName, personLastName, personName, partyName) %>% # want to keep first and last name 
     summarise(presences = n())
 }
 
@@ -23,4 +24,11 @@ onlyMembersFullLegislature <- function(meetings) {
   meetings %>%
     semi_join(members_entire_legislature, by = "personId")
 }
+
+addPersonName <- function(meetings) {
+  meetings %>% 
+    unite("personName", personFirstName:personLastName, remove = FALSE, sep = " ")
+}
+
+
   

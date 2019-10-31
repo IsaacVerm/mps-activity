@@ -1,48 +1,49 @@
 library(tidyverse)
 
-# read
-meetings <- read_csv(file = "meetings.csv",
-                     col_names = c("meetingId",
-                                   "commissionName",
-                                   "commissionId",
-                                   "start",
-                                   "end",
-                                   "description",
-                                   "personId",
-                                   "personFirstName",
-                                   "personLastName",
-                                   "partyName",
-                                   "partyId",
-                                   "gender"))
+# load
+source("src/read-functions.R")
+source("src/meetings-functions.R")
+source("src/presences-functions.R")
 
-# mangle
-meetings <- meetings %>% 
-  unite("personName", personFirstName:personLastName, remove = FALSE, sep = " ")
+meetings <- readMeetings()
+members <- readMembers()
+election_results <- readElectionResults()
 
-# number of meetings present per person
-presencePerPerson <- meetings %>% 
-  group_by(personName, partyName) %>% 
-  summarise(presences = n()) 
+# wrangle
+presences <- meetings %>%
+  addPersonName() %>% 
+  onlyMembersFullLegislature() %>% 
+  countPresences()
 
-# visualize most active parliamentarians
-mostActiveParliamentarians <- presencePerPerson %>% 
+# members of parliament most present
+top_20_presences <- presences %>% 
+  ungroup() %>% 
   arrange(desc(presences)) %>% 
   top_n(20)
 
-ggplot(data = mostActiveParliamentarians,
-       aes(x = reorder(personName, presences), y = presences)) +
-  geom_col() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(x = "parlementslid", y = "aantal aanwezigheden", title = "Aanwezigheden legislatuur 2014-2019")
+plotPresencesByParty(top_20_presences, "top 20 members of parliament most present")
+ggsave("plot/top-20-most-presences.png")
+
+# members of parliament least present
+bottom_20_presences <- presences %>% 
+  ungroup() %>% 
+  arrange(presences) %>% 
+  top_n(-20)
+
+plotPresencesByParty(bottom_20_presences, "top 20 members of parliament least present")
+ggsave("plot/top-20-least-presences.png")
   
 # average number of presences by party
-presenceByParty <- presencePerPerson %>% 
+avg_presences_by_party <- presences %>% 
   group_by(partyName) %>%
-  summarise(avgNrOfPresences = round(mean(presences), digits = 0))
+  summarise(avgPresences = round(mean(presences), digits = 0))
 
-ggplot(data = presenceByParty,
-       aes(x = reorder(partyName, avgNrOfPresences), y = avgNrOfPresences)) +
+ggplot(data = avg_presences_by_party,
+       aes(x = reorder(partyName, desc(avgPresences)), y = avgPresences)) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 90)) +
-  labs(x = "partij", y = "gemiddeld aantal aanwezigheden per parlementslid", title = "Gemiddeld aantal aanwezigheden volgens partij")
+  labs(x = "party",
+       y = "average number of presences by MP",
+       title = "average number of presences by party")
+ggsave("plot/avg-presences-by-party.png")
   
