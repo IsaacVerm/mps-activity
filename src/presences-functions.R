@@ -21,7 +21,15 @@ plotPresencesByParty <- function(presences, title) {
     labs(x = "member of parliament",
          y = "number of presences",
          title = title,
-         fill = "party")
+         fill = "party") +
+    scale_fill_manual(values = c("Groen" = "green4",
+                                 "N-VA" = "saddlebrown",
+                                 "CD&V" = "orange",
+                                 "sp·a" = "red2",
+                                 "UF" = "violet",
+                                 "Open Vld" = "blue2",
+                                 "Onafhankelijke" = "gray70",
+                                 "Vlaams Belang" = "black"))
 }
 
 plotPresencesVotes <- function(presences) {
