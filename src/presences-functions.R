@@ -15,7 +15,7 @@ addRatioVotesPresences <- function (presences) {
 
 plotPresencesByParty <- function(presences, title) {
   ggplot(data = presences,
-         aes(x = reorder(personName, desc(presences)), y = presences)) +
+         aes(x = reorder(personLastName, desc(presences)), y = presences)) +
     geom_col(aes(fill = partyName)) +
     theme(axis.text.x = element_text(angle = 90)) +
     labs(x = "member of parliament",
