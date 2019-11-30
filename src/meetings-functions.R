@@ -7,7 +7,7 @@ onlyObligatoryMeetings <- function(meetings, members) {
 
 countPresences <- function(meetings) {
   meetings %>% 
-    group_by(personId, personFirstName, personLastName, personName, partyName) %>% # want to keep first and last name 
+    group_by(personId, personFirstName, personLastName, partyName) %>% # want to keep first and last name 
     summarise(presences = n())
 }
 
